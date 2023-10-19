@@ -89,10 +89,14 @@ spec:
    volumeClaimTemplates:
     - metadata:
         name: vault-raft
-
+        namespace: default
+        annotations:
+          everest.io/disk-volume-type: SSD    # EVS disk type.
+          everest.io/crypt-key-id: 7feb5e0f-6df9-426c-9bab-9268fedcc618    # (Optional) Encryption key ID. Mandatory for an encrypted disk.
+          # everest.io/enterprise-project-id: <your_project_id>  # (Optional) Enterprise project ID. If an enterprise project is specified, use the same enterprise project when creating a PVC. Otherwise, the PVC cannot be bound to a PV.
       spec:
         # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class-1
-        # storageClassName: ""
+        storageClassName: "csi-disk"
         accessModes:
           - ReadWriteOnce
         volumeMode: Filesystem
