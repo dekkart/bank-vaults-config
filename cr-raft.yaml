@@ -86,18 +86,23 @@ spec:
   #         mountPath: /vault/file
 
   # Use local disk to store Vault raft data, see config section.
-  volumeClaimTemplates:
-    - metadata:
-        name: vault-raft
-      spec:
-        # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class-1
-        # storageClassName: ""
-        accessModes:
-          - ReadWriteOnce
-        volumeMode: Filesystem
-        resources:
-          requests:
-            storage: 1Gi
+  # volumeClaimTemplates:
+  #  - metadata:
+  #      name: vault-raft
+  #    spec:
+  #      # https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class-1
+  #      # storageClassName: ""
+  #      accessModes:
+  #        - ReadWriteOnce
+  #      volumeMode: Filesystem
+  #      resources:
+  #        requests:
+  #          storage: 1Gi
+
+  volumes:
+    - name: vault-raft
+      persistentVolumeClaim:
+        claimName: pvc-4f24dce3-fad2-45b8-8863-e98e59623da6
 
   volumeMounts:
     - name: vault-raft
